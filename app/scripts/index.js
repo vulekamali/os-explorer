@@ -15,6 +15,9 @@ require('./application');
   globals._ = _;
   globals.jQuery = globals.$ = jquery;
   globals.angular = angular;
+  if (typeof globals.Promise != 'function') {
+    globals.Promise = require('bluebird');
+  }
 
   require('os-bootstrap/dist/js/bootstrap');
 })(window || this);
