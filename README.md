@@ -8,4 +8,22 @@ An app to explorer the OpenSpending database.
 
 ## Quick start
 
-Clone the repo, install dependencies from npm, and run the server. See the [docs](http://docs.openspending.org/en/latest/developers/explorer/) for more information.
+
+- get the code
+`git clone https://github.com/openspending/os-explorer.git`
+
+- install dependencies
+`npm install`
+
+- build the frontend assets
+`npm run build`
+
+- run the tests
+`npm test`
+
+- run the application...
+`npm start`
+
+- ... or just open index.html in your favorite browser
+
+See the [docs](http://docs.openspending.org/en/latest/developers/explorer/) for more information.

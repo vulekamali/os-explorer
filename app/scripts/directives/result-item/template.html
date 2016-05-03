@@ -1,0 +1,14 @@
+<div class="x-search-result-item">
+  <h3><a ng-href="{{ 'http://next.openspending.org/viewer/' + packageId }}" target="_blank">{{ package.title || package.name }}</a></h3>
+  <p ng-if="package.description" marked="package.description"></p>
+  <p ng-if="!package.description" class="text-muted">This datapackage has no description</p>
+
+  <p ng-if="package.author"><i class="os-icon os-icon-user margin-right-4"></i>{{ package.author }}</p>
+  <p ng-if="package.regionCode || package.countryCode || package.cityCode"><i class="os-icon os-icon-location margin-right-4"></i>{{
+  [package.regionCode, package.countryCode, package.cityCode] | join
+  }}</p>
+
+  <div>
+    <span ng-repeat="format in formats" class="label label-info text-uppercase">{{ format }}</span>
+  </div>
+</div>
