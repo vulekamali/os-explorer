@@ -13,7 +13,8 @@ module.exports = application.directive('previewItem', [
       template: template,
       scope: {
         packageId: '=',
-        package: '='
+        package: '=',
+        base: '='
       },
       link: function() {
       }

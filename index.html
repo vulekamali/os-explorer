@@ -17,8 +17,8 @@
   <nav class="navbar navbar-inverse x-page-header">
     <div class="navbar-header navbar-header-full-width">
       <ul class="nav navbar-nav pull-right">
-        <li><a href="http://fiscal.dataprotocols.org/spec/">Fiscal Data Package Spec</a></li>
-        <li><a href="http://community.openspending.org/next/">OpenSpending Next</a></li>
+        <li><a href="/packager/">Upload Data</a></li>
+        <li><a href="/about/">About</a></li>
       </ul>
       <span class="navbar-brand navbar-brand-info" ng-class="{'navbar-brand-black': !!search.package.title}"
         title="OS Viewer" target="_self"><img src="public/assets/os.svg" class="os-logo-part"><span class="os-logo-part">Explorer</span></span>
@@ -68,8 +68,8 @@
 
     <div class="container-fluid">
       <div ng-if="!search.package.title && (preview.length > 0)" class="row padding-top-15">
-        <div ng-repeat="item in preview track by item.id" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <preview-item package-id="item.id" package="item.package"></preview-item>
+        <div ng-repeat="item in preview track by item.id" class="x-preview-item-wrapper col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <preview-item package-id="item.id" package="item.package" data-base="BASE"></preview-item>
         </div>
       </div>
 

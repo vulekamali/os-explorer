@@ -11,13 +11,13 @@ var application = angular.module('Application');
 module.exports = application.controller('MainController', [
   '$scope', '$rootScope', '$q', '$filter',
   function($scope, $rootScope, $q, $filter) {
-    $scope.preview = searchService.ngGetPackages(10);
-
     var configurations = config.ngGetSettings();
 
     // Load config and then bootstrap app
     configurations.$promise.then(function() {
-      searchService.setSearchApiUrl(configurations.searchApiUrl);
+      searchService.setSearchApiUrl(configurations.baseUrl+'/search/package');
+      $rootScope.BASE = configurations.baseUrl;
+      $scope.preview = searchService.ngGetPackages(50);
       var promises = [
         $scope.preview.$promise
       ];

@@ -4,7 +4,7 @@ var search = require('./search');
 var $q = require('./ng-promise');
 
 function setSearchApiUrl(url) {
-  return search.setSearchApiUrl = url;
+  return search.setSearchApiUrl(url);
 }
 
 function ngSearchPackages(query) {
