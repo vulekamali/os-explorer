@@ -37,8 +37,9 @@ function queryToUrlParams(query) {
   return result.join('&');
 }
 
-function searchPackages(query) {
-  var url = searchApiUrl + '?' + queryToUrlParams(query);
+function searchPackages(query, filters) {
+  var params = _.extend({},query, filters);
+  var url = searchApiUrl + '?' + queryToUrlParams(params);
   return fetch(url).then(function(response) {
     if (response.status != 200) {
       throw 'Failed to load data from ' + response.url;

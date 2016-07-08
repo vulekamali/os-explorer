@@ -5,25 +5,25 @@
     title="Author"
     can-clear="yes"
     items="options.authors"
-    selected="filters.package.author"></sidebar-list>
+    selected="filters['package.author']"></sidebar-list>
 
   <sidebar-list ng-if="options.regions.length > 0"
     title="Continent"
     can-clear="yes"
     items="options.regions"
-    selected="filters.package.regionCode"></sidebar-list>
+    selected="filters['package.regionCode']"></sidebar-list>
 
   <sidebar-list ng-if="options.countries.length > 0"
     title="Country"
     can-clear="yes"
     items="options.countries"
-    selected="filters.package.countryCode"></sidebar-list>
+    selected="filters['package.countryCode']"></sidebar-list>
 
   <sidebar-list ng-if="options.cities.length > 0"
     title="City"
     can-clear="yes"
     items="options.cities"
-    selected="filters.package.cityCode"></sidebar-list>
+    selected="filters['package.cityCode']"></sidebar-list>
 
   <sidebar-list ng-if="options.formats.length > 0"
     title="Formats"

@@ -80,7 +80,7 @@ function getUniqueFilterOptions(packages) {
   };
 
   _.forEach(result, function(values) {
-    if (values.length <= 1) {
+    if (values.length < 1) {
       values.splice(0, values.length);
     }
   });

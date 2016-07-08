@@ -20,7 +20,7 @@
         <li><a href="/packager/">Upload Data</a></li>
         <li><a href="/about/">About</a></li>
       </ul>
-      <span class="navbar-brand navbar-brand-info" ng-class="{'navbar-brand-black': !!search.package.title}"
+      <span class="navbar-brand navbar-brand-info" ng-class="{'navbar-brand-black': !!search.q}"
         title="OS Viewer" target="_self"><img src="public/assets/os.svg" class="os-logo-part"><span class="os-logo-part">Explorer</span></span>
     </div>
   </nav>
@@ -39,14 +39,14 @@
 <!-- BEGIN: Page Contents -->
 <div ng-cloak ng-if="applicationLoaded" class="x-page-container">
 <div>
-  <div class="x-sidebar" ng-if="!!search.package.title">
+  <div class="x-sidebar" ng-if="!!search.q">
     <sidebar-filters options="filterOptions" filters="filter"></sidebar-filters>
   </div>
 
   <div class="x-content">
-    <div ng-class="{'jumbotron': !search.package.title, 'jumbotron-inverse': !search.package.title}">
+    <div ng-class="{'jumbotron': !search.q, 'jumbotron-inverse': !search.package.title}">
       <div class="container-fluid">
-        <div ng-if="!search.package.title" class="x-header-banner">
+        <div ng-if="!search.q" class="x-header-banner">
           <div class="clearfix">
             <span class="x-header-icon x-header-icon-muted pull-left"><i class="fa fa-search"></i></span>
             <span class="x-header-icon x-header-icon-muted pull-left"><i class="os-icon os-icon-share"></i></span>
@@ -55,10 +55,10 @@
           </div>
           <h1>Searchable, shareable access to OpenSpending datasets.</h1>
         </div>
-        <h2 ng-if="!!search.package.title">Search data</h2>
+        <h2 ng-if="!!search.q">Search data</h2>
         <div class="form-group">
-          <input type="text" class="form-control" ng-class="{'form-control-inverse': !search.package.title}"
-            ng-model="search.package.title"
+          <input type="text" class="form-control" ng-class="{'form-control-inverse': !search.q}"
+            ng-model="search.q"
             ng-model-options="{debounce: 200}"
             placeholder="Search data">
           <span class="form-control-feedback"><i class="fa fa-search"></i></span>
@@ -67,25 +67,25 @@
     </div>
 
     <div class="container-fluid">
-      <div ng-if="!search.package.title && (preview.length > 0)" class="row padding-top-15">
+      <div ng-if="!search.q && (preview.length > 0)" class="row padding-top-15">
         <div ng-repeat="item in preview track by item.id" class="x-preview-item-wrapper col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <preview-item package-id="item.id" package="item.package" data-base="BASE"></preview-item>
         </div>
       </div>
 
-      <div ng-if="!!search.package.title && (filteredResults.length == 0)">
+      <div ng-if="!!search.q && (results.length == 0)">
         <p class="text-muted">No results found.</p>
       </div>
 
-      <div ng-if="filteredResults.length > 0" class="margin-bottom-32">
-        {{ filteredResults.length }}
-        <span ng-if="filteredResults.length == 1">dataset</span>
-        <span ng-if="filteredResults.length > 1">datasets</span>
+      <div ng-if="results.length > 0" class="margin-bottom-32">
+        {{ results.length }}
+        <span ng-if="results.length == 1">dataset</span>
+        <span ng-if="results.length > 1">datasets</span>
         found
       </div>
 
-      <div ng-if="filteredResults.length > 0">
-        <div ng-repeat="result in filteredResults track by result.id">
+      <div ng-if="results.length > 0">
+        <div ng-repeat="result in results track by result.id">
           <result-item package-id="result.id" package="result.package"></result-item>
         </div>
       </div>

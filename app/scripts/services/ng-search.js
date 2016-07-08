@@ -7,9 +7,9 @@ function setSearchApiUrl(url) {
   return search.setSearchApiUrl(url);
 }
 
-function ngSearchPackages(query) {
+function ngSearchPackages(query, filters) {
   var result = [];
-  result.$promise = $q(search.searchPackages(query));
+  result.$promise = $q(search.searchPackages(query, filters));
   result.$promise.then(function(items) {
     result.splice(0, result.length);
     [].push.apply(result, items);

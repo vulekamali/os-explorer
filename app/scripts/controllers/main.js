@@ -34,48 +34,31 @@ module.exports = application.controller('MainController', [
       package: {}
     };
 
-    $scope.filteredResults = [];
+    function fetchResults(getFilterOptions) {
+      var prevResults = $scope.results;
+      $scope.results = searchService.ngSearchPackages($scope.search, $scope.filter);
+      if (_.isArray(prevResults)) {
+        [].push.apply($scope.results, prevResults);
+      }
 
-    function filterResults(results, filters) {
-      var temp = _.extend({}, filters);
-      temp.package = {};
-      _.forEach(filters.package, function(values, key) {
-        if (_.isArray(values)) {
-          if (values.length > 0) {
-            temp.package[key] = _.first(values);
-          }
-        } else {
-          temp.package[key] = values;
-        }
-      });
-      return $filter('filter')(results, temp);
+      if (getFilterOptions) {
+        $scope.results.$promise.then(function (results) {
+          var packages = _.map(results, 'package');
+          $scope.filterOptions = utils.getUniqueFilterOptions(packages);
+          return results;
+        });
+      }
     }
 
     $scope.$watch('filter', function(newValue, oldValue) {
-      if (newValue === oldValue) {
-        return;
+      if (newValue !== oldValue) {
+        fetchResults();
       }
-
-      $scope.filteredResults = filterResults($scope.results, $scope.filter);
     }, true);
 
     $scope.$watch('search', function(newValue, oldValue) {
       if (newValue !== oldValue) {
-        var prevResults = $scope.results;
-        $scope.results = searchService.ngSearchPackages(newValue);
-        if (_.isArray(prevResults)) {
-          [].push.apply($scope.results, prevResults);
-        }
-
-        $scope.results.$promise.then(function(results) {
-          var packages = _.map(results, 'package');
-          $scope.filterOptions = utils.getUniqueFilterOptions(packages);
-          $scope.filter = {
-            package: {}
-          };
-          $scope.filteredResults = filterResults($scope.results, $scope.filter);
-          return results;
-        });
+        fetchResults(true);
       }
     }, true);
   }
