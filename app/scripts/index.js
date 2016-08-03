@@ -19,5 +19,5 @@ require('./application');
     globals.Promise = require('bluebird');
   }
 
-  require('os-bootstrap/dist/js/bootstrap');
+  require('os-bootstrap/dist/js/os-bootstrap');
 })(window || this);
