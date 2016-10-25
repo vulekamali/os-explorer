@@ -5,12 +5,13 @@ var angular = require('angular');
 var searchService = require('../services/ng-search');
 var utils = require('../services/utils');
 var config = require('../services/config');
+var theme = require('../services/theme');
 
 var application = angular.module('Application');
 
 module.exports = application.controller('MainController', [
-  '$scope', '$rootScope', '$q', '$filter',
-  function($scope, $rootScope, $q, $filter) {
+  '$scope', '$rootScope', '$q', '$filter', '$location',
+  function($scope, $rootScope, $q, $filter, $location) {
     var configurations = config.ngGetSettings();
 
     // Load config and then bootstrap app
@@ -33,6 +34,8 @@ module.exports = application.controller('MainController', [
     $scope.filter = {
       package: {}
     };
+
+    $scope.theme = theme.get($location.search()['theme']);
 
     function fetchResults(getFilterOptions) {
       var prevResults = $scope.results;
