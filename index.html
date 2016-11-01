@@ -24,7 +24,7 @@
     <div class="navbar-header navbar-header-full-width">
       <ul class="nav navbar-nav pull-right">
         <li ng-repeat="link in theme.header.links">
-          <a ng-href="link.url">{{link.title}}</a>
+          <a ng-href="{{ link.href }}">{{link.title}}</a>
         </li>
       </ul>
       <span class="navbar-brand navbar-brand-info" ng-class="{'navbar-brand-black': !!search.q}"
