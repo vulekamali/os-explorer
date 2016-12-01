@@ -15,8 +15,10 @@ function queryToUrlParams(query) {
   var traverse = function(path, value, result) {
     if (_.isArray(value)) {
       _.forEach(value, function(value) {
-        result.push(encodeURIComponent(path) + '=' +
-          encodeURIComponent(JSON.stringify(value)));
+        if (value != '') {
+          result.push(encodeURIComponent(path) + '=' +
+            encodeURIComponent(JSON.stringify(value)));
+        }
       });
     } else
     if (_.isObject(value)) {
@@ -25,8 +27,10 @@ function queryToUrlParams(query) {
         traverse(newPath, value, result);
       });
     } else {
-      result.push(encodeURIComponent(path) + '=' +
-        encodeURIComponent(JSON.stringify(value)));
+      if (value != '') {
+        result.push(encodeURIComponent(path) + '=' +
+          encodeURIComponent(JSON.stringify(value)));
+      }
     }
   };
   var result = [];
