@@ -7,9 +7,9 @@ var defaultTheme = require('./themes/default.json');
 var themes = {
   'default': defaultTheme,
   // Other themes
-  'wacky': require('./themes/wacky.json'),
-}
+  'wacky': require('./themes/wacky.json')
+};
 
 module.exports.get = function(theme) {
- return _.merge({}, themes.default, themes[theme])
+  return _.merge({}, themes.default, themes[theme]);
 };

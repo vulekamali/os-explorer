@@ -10,13 +10,15 @@ var theme = require('../services/theme');
 var application = angular.module('Application');
 
 module.exports = application.controller('MainController', [
-  '$scope', '$rootScope', '$q', '$filter', '$location',
-  function($scope, $rootScope, $q, $filter, $location) {
+  '$scope', '$rootScope', '$q', '$filter', '$location', 'LoginService',
+  function($scope, $rootScope, $q, $filter, $location, LoginService) {
     var configurations = config.ngGetSettings();
+
+    $scope.login = LoginService;
 
     // Load config and then bootstrap app
     configurations.$promise.then(function() {
-      searchService.setSearchApiUrl(configurations.baseUrl+'/search/package');
+      searchService.setSearchApiUrl(configurations.baseUrl + '/search/package');
       $rootScope.BASE = configurations.baseUrl;
       $scope.preview = searchService.ngGetPackages(50);
       var promises = [
@@ -35,17 +37,18 @@ module.exports = application.controller('MainController', [
       package: {}
     };
 
-    $scope.theme = theme.get($location.search()['theme']);
+    $scope.theme = theme.get($location.search().theme);
 
     function fetchResults(getFilterOptions) {
       var prevResults = $scope.results;
-      $scope.results = searchService.ngSearchPackages($scope.search, $scope.filter);
+      $scope.results = searchService.ngSearchPackages($scope.search,
+        $scope.filter);
       if (_.isArray(prevResults)) {
         [].push.apply($scope.results, prevResults);
       }
 
       if (getFilterOptions) {
-        $scope.results.$promise.then(function (results) {
+        $scope.results.$promise.then(function(results) {
           var packages = _.map(results, 'package');
           $scope.filterOptions = utils.getUniqueFilterOptions(packages);
           return results;

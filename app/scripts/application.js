@@ -6,10 +6,12 @@ require('angular-animate');
 
 module.exports = angular.module('Application', [
   'ngAnimate',
-  'hc.marked'
+  'hc.marked',
+  'authClient.services'
 ]);
 
 require('./controllers');
+require('./services/login');
 require('./directives');
 require('./filters');
 require('./animations');

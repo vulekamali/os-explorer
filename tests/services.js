@@ -55,7 +55,7 @@ describe('Services', function() {
         regions: ['sa', 'eu', 'as'],
         countries: ['PE', 'MD', 'AM', 'MK', 'PY', 'RU', 'MY'],
         cities: ['Skopje', 'PJ'],
-        formats: []
+        formats: ['csv']
       });
       done();
     });

@@ -7,8 +7,6 @@ var _ = require('lodash');
 var jquery = require('jquery');
 var angular = require('angular');
 
-require('./application');
-
 // Init some global variables - needed for proper work of angular and
 // some other 3rd-party libraries
 (function(globals) {
@@ -20,4 +18,9 @@ require('./application');
   }
 
   require('os-bootstrap/dist/js/os-bootstrap');
+
+  globals.addEventListener('load', function() {
+    require('./application');
+    angular.bootstrap(globals.document, ['Application']);
+  });
 })(window || this);
