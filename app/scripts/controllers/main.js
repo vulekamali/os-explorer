@@ -22,7 +22,7 @@ module.exports = application.controller('MainController', [
       $rootScope.BASE = configurations.baseUrl;
       $scope.preview = searchService.ngGetPackages(50);
       var promises = [
-        //$scope.preview.$promise
+        // $scope.preview.$promise
       ];
       $q.all(promises).then(function() {
         $rootScope.applicationLoaded = true;

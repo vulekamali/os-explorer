@@ -1,16 +1,13 @@
 'use strict';
 
+/* global window */
+
 var _ = require('lodash');
 var $q = require('./ng-promise');
+var Promise = require('bluebird');
 
 function getSettings() {
-  var url = 'config.json';
-  return fetch(url).then(function(response) {
-    if (response.status != 200) {
-      throw 'Failed to load data from ' + response.url;
-    }
-    return response.json();
-  });
+  return Promise.resolve(window.globalConfig || {});
 }
 
 function ngGetSettings() {

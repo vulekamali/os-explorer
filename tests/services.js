@@ -6,9 +6,7 @@ var search = require('../app/scripts/services/search');
 var utils = require('../app/scripts/services/utils');
 
 describe('Services', function() {
-
   describe('Search API', function() {
-
     it('Should get 0..10 datapackages', function(done) {
       search.getPackages(10).then(function(items) {
         var condition = (items.length > 0) && (items.length <= 10);
@@ -29,11 +27,9 @@ describe('Services', function() {
         done();
       });
     });
-
   });
 
   describe('Utils', function() {
-
     it('Should get unique resource formats', function(done) {
       var packages = require('./data/packages.json');
       var formats = utils.getResourceFormats(_.first(packages));
@@ -59,7 +55,5 @@ describe('Services', function() {
       });
       done();
     });
-
   });
-
 });

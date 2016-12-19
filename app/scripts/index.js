@@ -23,4 +23,4 @@ var angular = require('angular');
     require('./application');
     angular.bootstrap(globals.document, ['Application']);
   });
-})(window || this);
+})(window);

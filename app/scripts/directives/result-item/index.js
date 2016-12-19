@@ -1,6 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
 var utils = require('../../services/utils');
 var angular = require('angular');
 var template = require('./template.html');
