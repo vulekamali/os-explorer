@@ -1,8 +1,8 @@
 'use strict';
 
-var angular = require('angular');
+var ngModule = require('../module');
 
-angular.module('Application').factory('LoginService', [
+ngModule.factory('LoginService', [
   '$q', 'authenticate', 'authorize', '$window',
   function($q, authenticate, authorize, $window) {
     var result = {};

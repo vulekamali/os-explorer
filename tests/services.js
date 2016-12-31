@@ -8,11 +8,13 @@ var utils = require('../app/scripts/services/utils');
 describe('Services', function() {
   describe('Search API', function() {
     it('Should get 0..10 datapackages', function(done) {
-      search.getPackages(10).then(function(items) {
-        var condition = (items.length > 0) && (items.length <= 10);
-        assert(condition, 'Items count should be between 0 and 10');
-        done();
-      });
+      search.getPackages(10)
+        .then(function(items) {
+          var condition = (items.length > 0) && (items.length <= 10);
+          assert(condition, 'Items count should be between 0 and 10');
+          done();
+        })
+        .catch(done);
     });
 
     it('Should find some datapackages', function(done) {
@@ -22,10 +24,12 @@ describe('Services', function() {
         }
       };
 
-      search.searchPackages(options).then(function(items) {
-        assert.isAbove(items.length, 0);
-        done();
-      });
+      search.searchPackages(options)
+        .then(function(items) {
+          assert.isAbove(items.length, 0);
+          done();
+        })
+        .catch(done);
     });
   });
 

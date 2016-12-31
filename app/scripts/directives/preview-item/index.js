@@ -1,11 +1,9 @@
 'use strict';
 
-var angular = require('angular');
 var template = require('./template.html');
+var ngModule = require('../../module');
 
-var application = angular.module('Application');
-
-module.exports = application.directive('previewItem', [
+ngModule.directive('previewItem', [
   function() {
     return {
       restrict: 'E',

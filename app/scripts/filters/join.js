@@ -1,10 +1,9 @@
 'use strict';
 
 var _ = require('lodash');
-var angular = require('angular');
-var module = angular.module('Application');
+var ngModule = require('../module');
 
-module.filter('join', [
+ngModule.filter('join', [
   function() {
     return function(input, separator) {
       if (_.isArray(input)) {

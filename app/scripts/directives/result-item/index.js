@@ -1,12 +1,10 @@
 'use strict';
 
 var utils = require('../../services/utils');
-var angular = require('angular');
 var template = require('./template.html');
+var ngModule = require('../../module');
 
-var application = angular.module('Application');
-
-module.exports = application.directive('resultItem', [
+ngModule.directive('resultItem', [
   function() {
     return {
       restrict: 'E',

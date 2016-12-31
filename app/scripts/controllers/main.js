@@ -1,15 +1,13 @@
 'use strict';
 
 var _ = require('lodash');
-var angular = require('angular');
 var searchService = require('../services/ng-search');
 var utils = require('../services/utils');
 var config = require('../services/config');
 var theme = require('../services/theme');
+var ngModule = require('../module');
 
-var application = angular.module('Application');
-
-module.exports = application.controller('MainController', [
+ngModule.controller('MainController', [
   '$scope', '$rootScope', '$q', '$filter', '$location', 'LoginService',
   function($scope, $rootScope, $q, $filter, $location, LoginService) {
     var configurations = config.ngGetSettings();

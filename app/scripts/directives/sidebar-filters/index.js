@@ -1,12 +1,10 @@
 'use strict';
 
 var _ = require('lodash');
-var angular = require('angular');
 var template = require('./template.html');
+var ngModule = require('../../module');
 
-var application = angular.module('Application');
-
-module.exports = application.directive('sidebarFilters', [
+ngModule.directive('sidebarFilters', [
   function() {
     return {
       restrict: 'E',
