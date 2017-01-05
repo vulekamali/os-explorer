@@ -20,6 +20,7 @@
     "os-bootstrap": "git+https://github.com/openspending/os-bootstrap.git"
   },
   "devDependencies": {
+    "express": "^4.14.0",
     "chai": "^3.4.0",
     "eslint": "^3.12.0",
     "eslint-config-google": "^0.7.1",
