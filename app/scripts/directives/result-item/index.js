@@ -12,7 +12,8 @@ ngModule.directive('resultItem', [
       template: template,
       scope: {
         packageId: '=',
-        package: '='
+        package: '=',
+        base: '='
       },
       link: function($scope) {
         $scope.$watch('package', function(newValue, oldValue) {
