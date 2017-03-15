@@ -8,7 +8,7 @@
     <p ng-if="package.description" class="margin-bottom-8" marked="package.description"></p>
     <p ng-if="!package.description" class="text-muted">This datapackage has no description</p>
 
-    <p ng-if="package.authors.length"><i class="os-icon os-icon-user margin-right-4"></i>{{ package.author | join }}</p>
+    <p ng-if="package.authors.length"><i class="os-icon os-icon-user margin-right-4"></i>{{ package.authors | join }}</p>
     <p ng-if="package.regions.length || package.countries.length || package.cities.length"><i
       class="os-icon os-icon-location margin-right-4"></i>{{ package | formatLocation }}</p>
   </div>

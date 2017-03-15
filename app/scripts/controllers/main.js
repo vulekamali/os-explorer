@@ -1,19 +1,30 @@
 'use strict';
 
 var _ = require('lodash');
+var Promise = require('bluebird');
 var theme = require('../services/themes');
 var $q = require('../services/ng-utils').$q;
 var searchService = require('../services/search');
 var osExplorerService = require('../services/os-explorer');
+var cosmopolitan = require('../services/cosmopolitan');
 var ngModule = require('../module');
 
 function createToken() {
   return '' + (new Date() * 1) + ':' + Math.round(Math.random() * 1000000);
 }
 
+function createNameMap(items) {
+  return _.chain(items)
+    .map(function(item) {
+      return [item.code, item.name];
+    })
+    .fromPairs()
+    .value();
+}
+
 ngModule.controller('MainController', [
-  '$scope', '$rootScope', '$location', 'LoginService',
-  function($scope, $rootScope, $location, LoginService) {
+  '$scope', '$rootScope', '$filter', '$location', 'LoginService',
+  function($scope, $rootScope, $filter, $location, LoginService) {
     $scope.login = LoginService;
     $scope.theme = theme.get($location.search().theme);
 
@@ -36,8 +47,19 @@ ngModule.controller('MainController', [
     var allDataPackages = [];
     $scope.preview = [];
 
-    $q(osExplorerService.getSettings())
-      .then(function(config) {
+    var promises = [
+      osExplorerService.getSettings(),
+      cosmopolitan.getContinents(),
+      cosmopolitan.getCountries()
+    ];
+
+    $q(Promise.all(promises))
+      .then(function(results) {
+        $filter('prettyName').map = _.extend({}, createNameMap(results[1]),
+          createNameMap(results[2]));
+
+        var config = results[0];
+
         $rootScope.BASE = config.baseUrl;
         searchService.searchApiUrl = config.searchUrl;
         return $q(searchService.getAllDataPackages());

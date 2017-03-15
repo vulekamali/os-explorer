@@ -7,29 +7,12 @@
     </a>
   </div>
   <div ng-if="!list.isCollapsed" class="list-group list-group-inverse slide-animation">
-    <a ng-repeat="item in (selected | orderBy)" href="javascript:void(0);"
-      ng-if="(maxItems > 0) && (items.length > maxItems)"
-      class="list-group-item active">
-      <i ng-if="canClear" ng-click="unselectItem($event, item)" class="os-icon os-icon-remove pull-right"></i>
-      {{ item }}
-    </a>
-    <div class="list-group-item" ng-if="(maxItems > 0) && (items.length > maxItems)">
-      <div ng-class="{'input-group': !!filter.name}">
-        <input type="text" class="form-control form-control-inverse" placeholder="Search for item..." ng-model="filter.name">
-        <span class="input-group-btn" ng-if="!!filter.name">
-          <button class="btn btn-inverse" type="button" ng-click="filter.name = ''"><i class="fa fa-times"></i></button>
-        </span>
-      </div>
-    </div>
-    <a ng-repeat="item in (items | filter:filter.name | limitTo:maxItems)" href="javascript:void(0);"
-      ng-if="!maxItems || (maxItems <= 0) || ((maxItems > 0) && !isSelected(item))"
+    <a ng-repeat="item in items" href="javascript:void(0);"
       ng-class="{active: isSelected(item)}"
       ng-click="selectItem($event, item)"
       class="list-group-item">
       <i ng-if="canClear && isSelected(item)" ng-click="unselectItem($event, item)" class="os-icon os-icon-remove pull-right"></i>
-      {{ item }}
+      {{ item | prettyName }}
     </a>
-    <strong ng-if="!!filter.name && !items.length">No results found</strong>
-    <strong ng-if="hasMoreItems">... there are more items</strong>
   </div>
 </div>

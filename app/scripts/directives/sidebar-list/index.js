@@ -14,7 +14,6 @@ ngModule.directive('sidebarList', [
         title: '@',
         items: '=',
         selected: '=',
-        maxItems: '@?',
         canClear: '@?',
         multiSelect: '@?'
       },
