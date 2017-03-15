@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var Promise = require('bluebird');
 var downloader = require('../downloader');
+var path = require('path');
 
 module.exports.searchApiUrl = 'http://next.openspending.org/search/package';
 
@@ -20,6 +21,22 @@ function getUniqueItems(items) {
   return _.keys(result);
 }
 
+function getResourceFormatFromMediaType(value) {
+  value = ('' + value).toLowerCase();
+  switch (value) {
+    case 'text/csv':
+    case 'application/csv':
+      return 'csv';
+    case 'application/json':
+    case 'application/x-json':
+    case 'text/json':
+    case 'text/x-json':
+      return 'json';
+    default:
+      return '';
+  }
+}
+
 function getResourceFormats(dataPackage) {
   if (!_.isObject(dataPackage) || !_.isArray(dataPackage.resources)) {
     return [];
@@ -27,8 +44,14 @@ function getResourceFormats(dataPackage) {
 
   var formats = {};
   _.forEach(dataPackage.resources, function(resource) {
-    if (resource.format) {
-      formats[resource.format] = true;
+    var format = '';
+    if (_.isString(resource.format) && (resource.format != '')) {
+      format = resource.format.toLowerCase();
+    } else if (_.isString(resource.mediatype) && (resource.mediatype != '')) {
+      format = getResourceFormatFromMediaType(resource.mediatype);
+    }
+    if (format != '') {
+      formats[format] = true;
     }
   });
   return _.keys(formats);
@@ -112,14 +135,6 @@ function performSearch(dataPackages, filters) {
       formats: isFilterValueSet(filters.formats)
     };
 
-    var temp = {
-      authors: 0,
-      regions: 0,
-      countries: 0,
-      cities: 0,
-      formats: 0
-    };
-
     _.each(dataPackages, function(dataPackage) {
       // Apply full-text search - skip items that does not match query
       if (ids.indexOf(dataPackage.id) == -1) {
@@ -136,7 +151,6 @@ function performSearch(dataPackages, filters) {
       var matchesAll = _.reduce(matches, function(result, item) {
         return result && item;
       }, true);
-
       if (matchesAll) {
         result.items.push(dataPackage);
       }
@@ -152,7 +166,6 @@ function performSearch(dataPackages, filters) {
             return key == optionKey ? result : result && item;
           }, true);
           if (matchesExcept) {
-            temp[optionKey] += 1;
             _.each(dataPackage[optionKey], function(value) {
               optionValues[value] = true;
             });
@@ -186,6 +199,5 @@ function performSearch(dataPackages, filters) {
   });
 }
 
-module.exports.getResourceFormats = getResourceFormats;
 module.exports.getAllDataPackages = getAllDataPackages;
 module.exports.performSearch = performSearch;

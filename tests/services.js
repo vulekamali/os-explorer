@@ -1,63 +1,59 @@
 'use strict';
 
 var _ = require('lodash');
+var nock = require('nock');
 var assert = require('chai').assert;
 var search = require('../app/scripts/services/search');
-var utils = require('../app/scripts/services/utils');
 
 describe('Services', function() {
   describe('Search API', function() {
-    it('Should get 0..10 datapackages', function(done) {
-      search.getPackages(10)
-        .then(function(items) {
-          var condition = (items.length > 0) && (items.length <= 10);
-          assert(condition, 'Items count should be between 0 and 10');
-          done();
-        })
-        .catch(done);
+    before(function(done) {
+      search.searchApiUrl = 'http://search.example.com';
+
+      nock('http://search.example.com')
+        .persist()
+        .get('/?size=10000')
+        .reply(200, require('./data/packages.json'), {
+          'access-control-allow-origin': '*'
+        });
+
+        done();
     });
 
-    it('Should find some datapackages', function(done) {
-      var options = {
-        'package': {
-          name: 'Boost'
-        }
-      };
-
-      search.searchPackages(options)
+    it('Should get all datapackages', function(done) {
+      search.getAllDataPackages()
         .then(function(items) {
           assert.isAbove(items.length, 0);
           done();
         })
         .catch(done);
     });
-  });
 
-  describe('Utils', function() {
-    it('Should get unique resource formats', function(done) {
-      var packages = require('./data/packages.json');
-      var formats = utils.getResourceFormats(_.first(packages));
-      assert.deepEqual(formats, ['csv']);
-      done();
-    });
-
-    it('Should get filter options', function(done) {
-      var packages = require('./data/packages.json');
-      var options = utils.getUniqueFilterOptions(packages);
-      assert.deepEqual(options, {
-        authors: [
-          'Daniel Fowler <daniel.fowler@not.shown>',
-          'Victoria Vlad <victoriavladd@not.shown>',
-          'Cecile LeGuen <cecile.leguen@not.shown>',
-          'Goran Rizaov <rizagor@not.shown>',
-          'Michael Leow <leow@not.shown>'
-        ],
-        regions: ['sa', 'eu', 'as'],
-        countries: ['PE', 'MD', 'AM', 'MK', 'PY', 'RU', 'MY'],
-        cities: ['Skopje', 'PJ'],
-        formats: ['csv']
-      });
-      done();
+    it('Should perform search', function(done) {
+      search.getAllDataPackages()
+        .then(function(packages) {
+          return search.performSearch(packages, {
+            q: '',
+            filter: {}
+          })
+        })
+        .then(function(searchResults) {
+          assert.isAbove(searchResults.items.length, 0);
+          assert.deepEqual(searchResults.options, {
+            authors: [
+              'Cecile LeGuen <cecile.leguen@not.shown>',
+              'Daniel Fowler <daniel.fowler@not.shown>',
+              'Goran Rizaov <rizagor@not.shown>',
+              'Michael Leow <leow@not.shown>',
+              'Victoria Vlad <victoriavladd@not.shown>'
+            ],
+            regions: ['as', 'eu', 'sa'],
+            countries: ['AM', 'MD', 'MK', 'MY', 'PE', 'PY', 'RU'],
+            cities: ['PJ', 'Skopje']
+          });
+          done();
+        })
+        .catch(done);
     });
   });
 });

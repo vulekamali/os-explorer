@@ -1,5 +1,7 @@
 [
   {
+    "id": "405f5e1681d4b6673fbfc0ceb196fe47:boost-peru-2012",
+    "package": {
       "author": "Daniel Fowler <daniel.fowler@not.shown>",
       "countryCode": "PE",
       "model": {
@@ -417,8 +419,11 @@
         }
       ],
       "title": "BOOST Peru (2012)"
-    },
+    }
+  },
   {
+    "id": "405f5e1681d4b6673fbfc0ceb196fe47:boost-moldova-2012-2014",
+    "package": {
       "author": "Daniel Fowler <daniel.fowler@not.shown>",
       "countryCode": "MD",
       "model": {
@@ -702,8 +707,11 @@
         }
       ],
       "title": "BOOST Moldova (2012-2014)"
-    },
+    }
+  },
   {
+    "id": "405f5e1681d4b6673fbfc0ceb196fe47:boost-armenia-2006-2014",
+    "package": {
       "author": "Daniel Fowler <daniel.fowler@not.shown>",
       "countryCode": "AM",
       "model": {
@@ -982,8 +990,11 @@
         }
       ],
       "title": "BOOST Armenia (2006-2014)"
-    },
+    }
+  },
   {
+    "id": "8c248ff162c3c3b957f487138850eaf2:kisela-voda",
+    "package": {
       "author": "Victoria Vlad <victoriavladd@not.shown>",
       "countryCode": "MK",
       "fiscalPeriod": {
@@ -1155,8 +1166,11 @@
         }
       ],
       "title": "Kisela Voda"
-    },
+    }
+  },
   {
+    "id": "405f5e1681d4b6673fbfc0ceb196fe47:boost-paraguay-muni",
+    "package": {
       "author": "Daniel Fowler <daniel.fowler@not.shown>",
       "countryCode": "PY",
       "model": {
@@ -1317,8 +1331,11 @@
         }
       ],
       "title": "BOOST Paraguay Muni"
-    },
+    }
+  },
   {
+    "id": "525a389a219b4aa66f2b2b94311c76e5:tret",
+    "package": {
       "author": "Cecile LeGuen <cecile.leguen@not.shown>",
       "countryCode": "RU",
       "description": "gretetre",
@@ -1458,8 +1475,11 @@
         }
       ],
       "title": "Balakovo Budget"
-    },
+    }
+  },
   {
+    "id": "0f1b4f6e8d34fdf966e45dd0e3d2c8e7:central-budget-2010-2016",
+    "package": {
       "author": "Goran Rizaov <rizagor@not.shown>",
       "cityCode": "Skopje",
       "countryCode": "MK",
@@ -1572,8 +1592,11 @@
         }
       ],
       "title": "Central Budget 2010-2016"
-    },
+    }
+  },
   {
+    "id": "0638aadc448427e8b617257ad01cd38a:mbpj",
+    "package": {
       "author": "Michael Leow <leow@not.shown>",
       "cityCode": "PJ",
       "countryCode": "MY",
@@ -1686,8 +1709,11 @@
         }
       ],
       "title": "MBPJ Budgets Sedia Ada"
-    },
+    }
+  },
   {
+    "id": "525a389a219b4aa66f2b2b94311c76e5:peruntukan-kpd",
+    "package": {
       "author": "Cecile LeGuen <cecile.leguen@not.shown>",
       "countryCode": "MY",
       "description": "Federal Budget 2015 - Peruntukan kpd Kumpulan Wang Terkanun",
@@ -1787,8 +1813,11 @@
         }
       ],
       "title": "Peruntukan kpd"
-    },
+    }
+  },
   {
+    "id": "8c248ff162c3c3b957f487138850eaf2:kisela",
+    "package": {
       "author": "Victoria Vlad <victoriavladd@not.shown>",
       "model": {
         "dimensions": {
@@ -1879,4 +1908,5 @@
       ],
       "title": "Kisela Voda municipality"
     }
+  }
 ]
