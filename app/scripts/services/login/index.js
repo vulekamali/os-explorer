@@ -1,6 +1,6 @@
 'use strict';
 
-var ngModule = require('../module');
+var ngModule = require('../../module');
 
 ngModule.factory('LoginService', [
   '$q', 'authenticate', 'authorize', '$window',

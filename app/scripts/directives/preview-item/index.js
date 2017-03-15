@@ -10,7 +10,6 @@ ngModule.directive('previewItem', [
       replace: true,
       template: template,
       scope: {
-        packageId: '=',
         package: '=',
         base: '='
       },

@@ -1,6 +1,6 @@
 'use strict';
 
-var utils = require('../../services/utils');
+var searchService = require('../../services/search');
 var template = require('./template.html');
 var ngModule = require('../../module');
 
@@ -11,18 +11,17 @@ ngModule.directive('resultItem', [
       replace: true,
       template: template,
       scope: {
-        packageId: '=',
         package: '=',
         base: '='
       },
       link: function($scope) {
         $scope.$watch('package', function(newValue, oldValue) {
           if (newValue !== oldValue) {
-            $scope.formats = utils.getResourceFormats($scope.package);
+            $scope.formats = searchService.getResourceFormats($scope.package);
           }
         });
 
-        $scope.formats = utils.getResourceFormats($scope.package);
+        $scope.formats = searchService.getResourceFormats($scope.package);
       }
     };
   }

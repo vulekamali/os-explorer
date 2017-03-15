@@ -54,19 +54,18 @@
           </div>
         </li>
       </ul>
-      <span class="navbar-brand navbar-brand-info" ng-class="{'navbar-brand-black': !!search.q}"
-        title="OS Viewer" target="_self">
-        <img src="{{theme.header.logo.icon}}" class="os-logo-part">
-        <span class="os-logo-part">
-          {{theme.header.logo.text}}
-        </span>
-      </span>
+      <a class="navbar-brand navbar-brand-info" href="javascript:void(0)"
+        ng-class="{'navbar-brand-black': !!search.q || search.viewAll}"
+        title="OS Viewer" ng-click="clearAllFilters()">
+        <img ng-src="{{theme.header.logo.icon}}" class="os-logo-part">
+        <span class="os-logo-part">{{theme.header.logo.text}}</span>
+      </a>
     </div>
   </nav>
 </div>
 <!-- END: Page Header -->
 
-<div ng-if="!applicationLoaded" class="padding-top-32 padding-bottom-32">
+<div ng-if="!isLoaded.application" class="padding-top-32 padding-bottom-32">
   <div class="text-center" style="margin-bottom: 1em;">
     <i class="fa fa-4x fa-spinner fa-pulse"></i>
   </div>
@@ -76,25 +75,25 @@
 </div>
 
 <!-- BEGIN: Page Contents -->
-<div ng-cloak ng-if="applicationLoaded" class="x-page-container">
+<div ng-cloak ng-if="isLoaded.application" class="x-page-container">
 <div>
-  <div class="x-sidebar" ng-if="!!search.q">
-    <sidebar-filters options="filterOptions" filters="filter"></sidebar-filters>
+  <div class="x-sidebar" ng-if="!!search.q || search.viewAll">
+    <sidebar-filters options="filterOptions" filters="search.filter"></sidebar-filters>
   </div>
 
   <div class="x-content">
-    <div ng-class="{'jumbotron': !search.q, 'jumbotron-inverse': !search.package.title}">
+    <div ng-class="{'jumbotron': !search.q && !search.viewAll, 'jumbotron-inverse': true}">
       <div class="container-fluid">
-        <div ng-if="!search.q" class="x-header-banner">
+        <div ng-if="!search.q && !search.viewAll" class="x-header-banner">
           <div class="clearfix">
             <span class="x-header-icon x-header-icon-muted pull-left"><i class="fa fa-search"></i></span>
             <span class="x-header-icon x-header-icon-muted pull-left"><i class="os-icon os-icon-share"></i></span>
-            <span class="x-header-icon pull-left"><img src="{{theme.header.logo.icon}}"></span>
+            <span class="x-header-icon pull-left"><img ng-src="{{theme.header.logo.icon}}"></span>
             <span class="x-header-icon-text pull-left">{{theme.header.logo.text}}</span>
           </div>
           <h1>{{theme.header.tagLine}}</h1>
         </div>
-        <h2 ng-if="!!search.q">Search data</h2>
+        <h2 ng-if="!!search.q || search.viewAll">Search data</h2>
         <div class="form-group">
           <input type="text" class="form-control" ng-class="{'form-control-inverse': !search.q}"
             ng-model="search.q"
@@ -102,30 +101,31 @@
             placeholder="Search data">
           <span class="form-control-feedback"><i class="fa fa-search"></i></span>
         </div>
+        <div ng-if="!search.q && !search.viewAll" class="text-right">
+          <a href="javascript:void(0)" style="color: #f5f5f5;"
+            ng-click="search.viewAll = true;">...or explore all datasets</a>
+        </div>
       </div>
     </div>
 
     <div class="container-fluid">
-      <div ng-if="!search.q && (preview.length > 0)" class="row padding-top-15">
+      <div ng-if="!search.q && !search.viewAll && (preview.length > 0)" class="row padding-top-15">
         <div ng-repeat="item in preview track by item.id" class="x-preview-item-wrapper col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <preview-item package-id="item.id" package="item.package" data-base="BASE"></preview-item>
+          <preview-item package="item" data-base="BASE"></preview-item>
         </div>
       </div>
 
-      <div ng-if="!!search.q && (results.length == 0)">
-        <p class="text-muted">No results found.</p>
-      </div>
-
-      <div ng-if="results.length > 0" class="margin-bottom-32">
-        {{ results.length }}
-        <span ng-if="results.length == 1">dataset</span>
-        <span ng-if="results.length > 1">datasets</span>
-        found
+      <div ng-if="!!search.q || search.viewAll" class="margin-top-32 margin-bottom-32"
+        ng-pluralize count="results.length" when="{
+          0: 'No results found.',
+          1: '{} dataset found.',
+          'other': '{} datasets found.',
+        }">
       </div>
 
       <div ng-if="results.length > 0">
         <div ng-repeat="result in results track by result.id">
-          <result-item package-id="result.id" package="result.package" data-base="BASE"></result-item>
+          <result-item package="result" data-base="BASE"></result-item>
         </div>
       </div>
     </div>
@@ -138,21 +138,21 @@
 <div>
   <nav class="navbar navbar-inverse navbar-footer" ng-cloak>
     <div class="clearfix">
-      <a href="/"><img src="{{ theme.footer.projectLogo.image }}"></a>
+      <a href="/"><img ng-src="{{ theme.footer.projectLogo.image }}"></a>
     </div>
 
     <hr>
 
     <div class="clearfix">
       <a class="pull-left x-footer-okfn-logo" ng-href="{{ theme.footer.orgLogo.href }}">
-        <img src="{{ theme.footer.orgLogo.image }}">
+        <img ng-src="{{ theme.footer.orgLogo.image }}">
       </a>
 
       <ul class="nav navbar-nav pull-right x-footer-icons">
         <li ng-repeat="link in theme.footer.socialMedia">
           <a ng-href="{{ link.href }}">
             <img style="height: 1.5em; vertical-align: middle;"
-                 src="{{ link.icon }}" alt="{{ link.alt }}">
+                 ng-src="{{ link.icon }}" alt="{{ link.alt }}">
           </a>
         </li>
       </ul>

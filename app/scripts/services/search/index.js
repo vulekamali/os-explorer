@@ -1,0 +1,191 @@
+'use strict';
+
+var _ = require('lodash');
+var Promise = require('bluebird');
+var downloader = require('../downloader');
+
+module.exports.searchApiUrl = 'http://next.openspending.org/search/package';
+
+function getUniqueItems(items) {
+  var result = {};
+  if (_.isArray(items)) {
+    _.each(items, function(item) {
+      result[item] = true;
+    });
+  } else {
+    if (items) {
+      result[items] = true;
+    }
+  }
+  return _.keys(result);
+}
+
+function getResourceFormats(dataPackage) {
+  if (!_.isObject(dataPackage) || !_.isArray(dataPackage.resources)) {
+    return [];
+  }
+
+  var formats = {};
+  _.forEach(dataPackage.resources, function(resource) {
+    if (resource.format) {
+      formats[resource.format] = true;
+    }
+  });
+  return _.keys(formats);
+}
+
+function getAllDataPackages() {
+  var url = module.exports.searchApiUrl + '?size=10000';
+  return downloader.getJson(url).then(function(packages) {
+    return _.chain(packages)
+      .filter(_.isObject)
+      .map(function(item) {
+        return {
+          id: item.id,
+          name: item.package.name,
+          title: item.package.title || item.package.name,
+          description: item.package.description,
+          authors: [item.package.author],
+          regions: getUniqueItems(item.package.regionCode),
+          countries: getUniqueItems(item.package.countryCode),
+          cities: getUniqueItems(item.package.cityCode),
+          formats: getResourceFormats(item.package)
+        };
+      })
+      .sortBy('title')
+      .value();
+  });
+}
+
+function searchByTitle(query) {
+  var url = module.exports.searchApiUrl + '?size=10000&q=' +
+    encodeURIComponent(JSON.stringify(query));
+  return downloader.getJson(url).then(function(packages) {
+    return _.chain(packages)
+      .filter(_.isObject)
+      .map(function(item) {
+        return item.id;
+      })
+      .value();
+  });
+}
+
+function isFilterValueSet(value) {
+  return _.isArray(value) && (value.length > 0);
+}
+
+function matchArray(item, compareTo) {
+  if (!isFilterValueSet(compareTo)) {
+    return true;
+  }
+  return _.intersection(item, compareTo).length > 0;
+}
+
+function performSearch(dataPackages, filters) {
+  var promise;
+  if (_.trim(filters.q) != '') {
+    promise = searchByTitle(filters.q);
+  } else {
+    promise = Promise.resolve(_.map(dataPackages, function(item) {
+      return item.id;
+    }));
+  }
+
+  return promise.then(function(ids) {
+    var result = {
+      items: [],
+      options: {
+        authors: {},
+        regions: {},
+        countries: {},
+        cities: {},
+        formats: {}
+      }
+    };
+
+    filters = filters.filter;
+    var isFilterSet = {
+      authors: isFilterValueSet(filters.authors),
+      regions: isFilterValueSet(filters.regions),
+      countries: isFilterValueSet(filters.countries),
+      cities: isFilterValueSet(filters.cities),
+      formats: isFilterValueSet(filters.formats)
+    };
+
+    var temp = {
+      authors: 0,
+      regions: 0,
+      countries: 0,
+      cities: 0,
+      formats: 0
+    };
+
+    _.each(dataPackages, function(dataPackage) {
+      // Apply full-text search - skip items that does not match query
+      if (ids.indexOf(dataPackage.id) == -1) {
+        return;
+      }
+
+      var matches = {
+        authors: matchArray(dataPackage.authors, filters.authors),
+        regions: matchArray(dataPackage.regions, filters.regions),
+        countries: matchArray(dataPackage.countries, filters.countries),
+        cities: matchArray(dataPackage.cities, filters.cities),
+        formats: matchArray(dataPackage.formats, filters.formats)
+      };
+      var matchesAll = _.reduce(matches, function(result, item) {
+        return result && item;
+      }, true);
+
+      if (matchesAll) {
+        result.items.push(dataPackage);
+      }
+
+      _.each(result.options, function(optionValues, optionKey) {
+        if (isFilterSet[optionKey]) {
+          // Use value if it is already selected
+          _.each(filters[optionKey], function(value) {
+            optionValues[value] = true;
+          });
+          // Pick values from items that matches all filters except this one
+          var matchesExcept = _.reduce(matches, function(result, item, key) {
+            return key == optionKey ? result : result && item;
+          }, true);
+          if (matchesExcept) {
+            temp[optionKey] += 1;
+            _.each(dataPackage[optionKey], function(value) {
+              optionValues[value] = true;
+            });
+          }
+        } else {
+          // If filter is not selected, pick values only from
+          // items that matches other filters
+          if (matchesAll) {
+            _.each(dataPackage[optionKey], function(value) {
+              optionValues[value] = true;
+            });
+          }
+        }
+      });
+    });
+
+    // Get unique values
+    result.options = _.chain(result.options)
+      .map(function(values, key) {
+        values = _.keys(values);
+        if ((values.length > 1) || isFilterSet[key]) {
+          return [key, _.sortBy(values)];
+        }
+        return null;
+      })
+      .filter()
+      .fromPairs()
+      .value();
+
+    return result;
+  });
+}
+
+module.exports.getResourceFormats = getResourceFormats;
+module.exports.getAllDataPackages = getAllDataPackages;
+module.exports.performSearch = performSearch;

@@ -24,6 +24,14 @@ var ngModule = angular.module('Application', [
       });
       markedProvider.setOptions({gfm: true});
     }
+  ])
+  .run([
+    '$rootScope',
+    function($rootScope) {
+      $rootScope.isLoaded = {
+        application: false
+      };
+    }
   ]);
 
 module.exports = ngModule;

@@ -2,12 +2,12 @@
 
 var _ = require('lodash');
 
-var defaultTheme = require('./themes/default.json');
+var defaultTheme = require('../../../themes/default.json');
 
 var themes = {
   'default': defaultTheme,
   // Other themes
-  'wacky': require('./themes/wacky.json')
+  'wacky': require('../../../themes/wacky.json')
 };
 
 module.exports.get = function(theme) {

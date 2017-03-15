@@ -17,6 +17,7 @@
     "jquery": "^2.1.4",
     "js-polyfills": "^0.1.12",
     "lodash": "^4.6.1",
+    "normalize-url": "^1.9.1",
     "os-bootstrap": "git+https://github.com/openspending/os-bootstrap.git"
   },
   "devDependencies": {
