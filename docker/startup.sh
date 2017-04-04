@@ -14,6 +14,8 @@ else
     ( cd /repos/os-explorer && npm install && npm run build  ) || true
 fi
 
-echo "{\"baseUrl\":\"\", \"snippets\": {\"ga\": \"$OS_SNIPPETS_GA\"}}" > config.json
+echo "{\"baseUrl\":\"\", \"searchUrl\": \"//$OS_EXPLORER_SEARCH_HOST/search/package\", \"snippets\": {\"ga\": \"$OS_SNIPPETS_GA\"}}" > config.json
+cat index.html | sed s:next.openspending.org/user/lib:$OS_EXPLORER_AUTH_HOST/user/lib: > index.html.tmp
+mv -f index.html.tmp index.html
 
 node server.js

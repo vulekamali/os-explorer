@@ -5,7 +5,8 @@ var Promise = require('bluebird');
 var downloader = require('../downloader');
 var path = require('path');
 
-module.exports.searchApiUrl = 'http://next.openspending.org/search/package';
+var config = window.globalConfig || {};
+module.exports.searchApiUrl = config.searchUrl || '//next.openspending.org/search/package';
 
 function getUniqueItems(items) {
   var result = {};
