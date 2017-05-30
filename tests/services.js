@@ -1,6 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
 var nock = require('nock');
 var assert = require('chai').assert;
 var search = require('../app/scripts/services/search');
@@ -35,7 +34,7 @@ describe('Services', function() {
           return search.performSearch(packages, {
             q: '',
             filter: {}
-          })
+          });
         })
         .then(function(searchResults) {
           assert.isAbove(searchResults.items.length, 0);

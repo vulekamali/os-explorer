@@ -3,10 +3,10 @@
 var _ = require('lodash');
 var Promise = require('bluebird');
 var downloader = require('../downloader');
-var path = require('path');
 
 var config = window.globalConfig || {};
-module.exports.searchApiUrl = config.searchUrl || '//next.openspending.org/search/package';
+var DEFAULT_SEARCH_URL = '//next.openspending.org/search/package';
+module.exports.searchApiUrl = config.searchUrl || DEFAULT_SEARCH_URL;
 
 function getUniqueItems(items) {
   var result = {};
