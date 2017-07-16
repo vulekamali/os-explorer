@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     "id": "405f5e1681d4b6673fbfc0ceb196fe47:boost-peru-2012",
     "package": {

@@ -1,0 +1,182 @@
+{% extends 'layouts/home.html' %}
+{% block title %}{{ this.title }}{% endblock %}
+{% block body %}
+<div>
+  <section class="search section">
+    <a name="search"></a>
+    <div class="inner">
+      <div ng-cloak>
+        <h1>
+          {% raw %}
+          Search over <strong>{{ (num_packages || 0) | number }}</strong> data packages from <strong>{{ (num_countries || 0) | number }}</strong> countries with over <strong>{{ (num_records || 0) | number }}</strong> fiscal records.
+          {% endraw %}
+        </h1>
+        <form class="form" action="search">
+          <fieldset class="input-group search-bar">
+            <input class="icon" type="search" placeholder="Search for available fiscal data" name="q" autofocus>
+            <button type="submit"><span>Search</span></button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li class="next">
+          <a href="#what">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">What is OpenSpending?</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="what section">
+    <a name="what"></a>
+    <div class="inner">
+      <div>
+        <h2>What is OpenSpending?</h2>
+
+        <p>
+          OpenSpending is a free, open and global platform to search, visualise and
+          analyse fiscal data in the public sphere. Start searching, or read on to
+          contribute data, code, or domain expertise.
+        </p>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li class="prev">
+          <a href="#search">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">Search fiscal data</span>
+          </a>
+        </li>
+        <li class="next">
+          <a href="#publishers">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">What else can I do here?</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="publishers section">
+    <a name="publishers"></a>
+    <div class="inner">
+      <div>
+        <h2>Publishers</h2>
+
+        <p>
+          Get started publishing your fiscal data today with the interactive
+          <a href="https://next.openspending.org/packager" target="_blank"
+          rel="external">Packager</a>, and explore the possibilities of the
+          platform’s rich API, advanced visualisations, and options for
+          integration.
+        </p>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li class="prev">
+          <a href="#what">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">What is OpenSpending?</span>
+          </a>
+        </li>
+        <li class="next">
+          <a href="#hackers">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">Hackers</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="hackers section">
+    <a name="hackers"></a>
+    <div class="inner">
+      <div>
+        <h2>Hackers</h2>
+
+        <p>
+          OpenSpending is a modern stack designed to liberate fiscal data for
+          good, and we’d love your help! Start with the <a
+          href="https://docs.openspending.org/en/latest" target="_blank"
+          rel="external">docs</a>, <a href="https://gitter.im/openspending/chat"
+          target="_blank" rel="external">chat with us</a>, or just <a
+          href="https://github.com/openspending" target="_blank"
+          rel="external">start hacking</a>.
+        </p>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li class="prev">
+          <a href="#publishers">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">Publishers</span>
+          </a>
+        </li>
+        <li class="next">
+          <a href="#society">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">Civil society</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="society section">
+    <a name="society"></a>
+    <div class="inner">
+      <div>
+        <h2>Civil society</h2>
+
+        <p>
+          Access a powerful suite of visualisation and analysis tools, running
+          on top of a huge database of open fiscal data. Discover facts,
+          generate insights, and develop stories.
+        </p>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li class="prev">
+          <a href="#hackers">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">Hackers</span>
+          </a>
+        </li>
+        <li class="next">
+          <a href="#involved">
+            <span class="icon"><svg><use xlink:href="#icon-arrow_down" /></svg></span>
+            <span class="text">Get involved</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="involved section">
+    <a name="involved"></a>
+    <div class="inner">
+      <div>
+        <h2>Get involved</h2>
+        <p>
+          Do you want to get involved with the OpenSpending project, so we can
+          work together towards a future of fiscal transparency from
+          governments and other public bodies?
+        </p>
+
+        <p>
+          If you are a journalist, a developer, a publisher, a CSO or just
+          someone who wants to be part of the change, we would love to hear
+          from you. Please <a href="https://discuss.okfn.org/c/openspending"
+          target="_blank" rel="external">introduce yourself in our discussion
+          forum</a>, and get started with a range of tutorials on using
+          OpenSpending.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

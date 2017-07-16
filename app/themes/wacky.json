@@ -16,7 +16,7 @@
       }
     ],
     "logo": {
-      "icon": "public/assets/os.svg",
+      "icon": "img/os.svg",
       "text": "Explorerrere"
     },
     "tagLine": "Wacky, shareable access to OpenSpending datasets."

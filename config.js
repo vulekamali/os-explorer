@@ -1,6 +1,6 @@
-globalConfig = {
-  baseUrl: '//next.openspending.org/',
-  searchUrl: '//next.openspending.org/search/package',
+module.exports = {
+  baseUrl: 'https://next.openspending.org',
+  searchUrl: 'https://next.openspending.org/search/package',
   snippets: {
     ga: null
   }

@@ -1,0 +1,21 @@
+<li ng-class="{'user': !login.isLoggedIn}" ng-cloak>
+    <a href class="login-link" ng-click="login.login()">
+      <i class="os-icon os-icon-user"></i>
+      Login / Register
+    </a>
+    <a href class="user-info-label" ng-click="toggleLoginMenu()">
+      <i class="os-icon os-icon-user"></i>
+      {{ login.name }}
+      <i class="os-icon os-icon-arrow-drop-down"></i>
+    </a>
+    <div ng-show="isLoginMenuShown" class="x-user-info">
+      <div class="x-avatar">
+        <img class="pull-left" ng-if="!!login.avatar" ng-src="{{ login.avatar }}">
+      </div>
+      <div class="x-info">
+        <div><strong>{{ login.name }}</strong></div>
+        <div><a href="/admin/">Profile</a></div>
+        <div><a href ng-click="login.logout()">Logout</a></div>
+      </div>
+    </div>
+</li>

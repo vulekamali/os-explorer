@@ -16,10 +16,8 @@ ngModule.directive('sidebarFilters', [
       },
       link: function($scope) {
         $scope.noOptionsAvailable = true;
+
         $scope.$watch('options', function(newValue, oldValue) {
-          if (newValue === oldValue) {
-            return;
-          }
           $scope.noOptionsAvailable = true;
           _.forEach(newValue, function(item) {
             if (_.isArray(item) && (item.length > 0)) {

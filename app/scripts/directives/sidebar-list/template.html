@@ -1,4 +1,4 @@
-<div ng-init="list.isCollapsed = true">
+<div ng-init="list.isCollapsed = (selected === undefined || selected.length == 0)">
   <div class="list-group list-group-inverse">
     <a ng-click="list.isCollapsed = !list.isCollapsed" href="javascript:void(0);" class="list-group-item">
       <i class="os-icon os-icon-filter"></i>

@@ -9,34 +9,31 @@ describe('Services', function() {
     before(function(done) {
       search.searchApiUrl = 'http://search.example.com';
 
-      nock('http://search.example.com')
+      nock(search.searchApiUrl)
         .persist()
-        .get('/?size=10000')
-        .reply(200, require('./data/packages.json'), {
+        .get('/')
+        .query({
+          size: 10000
+        })
+        .reply(200, require('./data/packages'), {
           'access-control-allow-origin': '*'
         });
 
-        done();
+      done();
     });
 
-    it('Should get all datapackages', function(done) {
-      search.getAllDataPackages()
+    it('Should get all datapackages', function() {
+      return search.getAllDataPackages()
         .then(function(items) {
           assert.isAbove(items.length, 0);
-          done();
-        })
-        .catch(done);
+        });
     });
 
-    it('Should perform search', function(done) {
-      search.getAllDataPackages()
-        .then(function(packages) {
-          return search.performSearch(packages, {
-            q: '',
-            filter: {}
-          });
-        })
-        .then(function(searchResults) {
+    it('Should perform search', function() {
+        return search.performSearch({
+          q: '',
+          filter: {}
+        }).then(function(searchResults) {
           assert.isAbove(searchResults.items.length, 0);
           assert.deepEqual(searchResults.options, {
             authors: [
@@ -50,9 +47,7 @@ describe('Services', function() {
             countries: ['AM', 'MD', 'MK', 'MY', 'PE', 'PY', 'RU'],
             cities: ['PJ', 'Skopje']
           });
-          done();
-        })
-        .catch(done);
+        });
     });
   });
 });

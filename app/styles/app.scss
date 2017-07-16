@@ -1,3 +1,5 @@
+@import "base";
+
 html {
   background: #131518;
   height: 100%;
@@ -22,31 +24,37 @@ textarea.resize-both {
   margin: 0;
 }
 
-.margin-side-x(@side, @multiplier: 10) when (@multiplier > 0) {
-  @n: @multiplier * 4;
-  .margin-@{side}-@{n} {
-    margin-@{side}: unit(@n, px);
+@mixin margin-side-x($side, $multiplier: 10)
+{
+  @if ($multiplier > 0) {
+    $n: $multiplier * 4;
+    .margin-#{$side}-#{$n} {
+      margin-#{$side}: #{$n + 'px'};
+    }
+    @include margin-side-x($side, ($multiplier - 1));
   }
-  .margin-side-x(@side, (@multiplier - 1));
 }
 
-.margin-side-x(top);
-.margin-side-x(right);
-.margin-side-x(bottom);
-.margin-side-x(left);
+@include margin-side-x(top);
+@include margin-side-x(right);
+@include margin-side-x(bottom);
+@include margin-side-x(left);
 
-.padding-side-x(@side, @multiplier: 10) when (@multiplier > 0) {
-  @n: @multiplier * 4;
-  .padding-@{side}-@{n} {
-    padding-@{side}: unit(@n, px);
+@mixin padding-side-x($side, $multiplier: 10)
+{
+  @if ($multiplier > 0) {
+    $n: $multiplier * 4;
+    .padding-#{$side}-#{$n} {
+      padding-#{$side}: #{$n + 'px'};
+    }
+    @include padding-side-x($side, ($multiplier - 1));
   }
-  .padding-side-x(@side, (@multiplier - 1));
 }
 
-.padding-side-x(top);
-.padding-side-x(right);
-.padding-side-x(bottom);
-.padding-side-x(left);
+@include padding-side-x(top);
+@include padding-side-x(right);
+@include padding-side-x(bottom);
+@include padding-side-x(left);
 
 .padding-top-15 {
   padding-top: 15px;
@@ -71,54 +79,7 @@ textarea.resize-both {
   }
 }
 
-.x-user-info {
-  position: absolute;
-  right: 0;
-  z-index: 999;
-  background: #131518;
-  display: table;
-  table-layout: auto;
-  width: auto;
-
-  .x-avatar {
-    vertical-align: top;
-    display: table-cell;
-    width: 1%;
-    padding: 1em;
-
-    img {
-      max-width: 5em;
-      max-height: 5em;
-    }
-  }
-
-  .x-info {
-    vertical-align: top;
-    display: table-cell;
-    padding: 1em;
-    padding-left: 0;
-
-    div {
-      white-space: nowrap;
-    }
-
-    strong {
-      color: #fff;
-    }
-
-    a {
-      color: darken(#fff, 40%);
-      text-decoration: none;
-
-      &:hover,
-      &:active {
-        color: #fff;
-      }
-    }
-  }
-}
-
-@color: #f7f7f7;
+$color: #f7f7f7;
 
 .x-page-container {
   display: table;
@@ -192,7 +153,7 @@ textarea.resize-both {
     }
 
     .x-vision {
-      color: @color;
+      color: $color;
       font-size: 125%;
       margin: 0.5em 0;
       padding-left: 20px;
@@ -208,7 +169,7 @@ textarea.resize-both {
 
     .x-ingredients {
       div.x-ingredient {
-        background-color: @color;
+        background-color: $color;
         border: solid 1px #444;
 
         h2 {
@@ -268,7 +229,7 @@ textarea.resize-both {
 
     .form-control.form-control-inverse {
       background: transparent;
-      color: @color;
+      color: $color;
       border-color: #888;
 
       height: 2em;
@@ -308,7 +269,7 @@ textarea.resize-both {
   }
 
   div.x-gs-option {
-    background-color: @color;
+    background-color: $color;
     border: solid 1px #444;
 
     h2 {

@@ -4,8 +4,8 @@ var _ = require('lodash');
 var Promise = require('bluebird');
 var downloader = require('../downloader');
 
-var config = window.globalConfig || {};
-var DEFAULT_SEARCH_URL = '//next.openspending.org/search/package';
+var config = require('config');
+var DEFAULT_SEARCH_URL = 'https://next.openspending.org/search/package';
 module.exports.searchApiUrl = config.searchUrl || DEFAULT_SEARCH_URL;
 
 function getUniqueItems(items) {
@@ -58,40 +58,54 @@ function getResourceFormats(dataPackage) {
   return _.keys(formats);
 }
 
-function getAllDataPackages() {
+function getDataPackages(query) {
   var url = module.exports.searchApiUrl + '?size=10000';
-  return downloader.getJson(url).then(function(packages) {
-    return _.chain(packages)
-      .filter(_.isObject)
-      .map(function(item) {
-        return {
-          id: item.id,
-          name: item.package.name,
-          title: item.package.title || item.package.name,
-          description: item.package.description,
-          authors: [item.package.author],
-          regions: getUniqueItems(item.package.regionCode),
-          countries: getUniqueItems(item.package.countryCode),
-          cities: getUniqueItems(item.package.cityCode),
-          formats: getResourceFormats(item.package)
-        };
-      })
-      .sortBy('title')
-      .value();
-  });
+
+  if (query !== undefined) {
+    url += '&q=' + encodeURIComponent(JSON.stringify(query));
+  }
+
+  return downloader.getJson(url)
+    .then(function(packages) {
+      return _.chain(packages)
+        .filter(_.isObject)
+        .map(function(item) {
+          return {
+            id: item.id,
+            name: item.package.name,
+            title: item.package.title || item.package.name,
+            description: item.package.description,
+            authors: [item.package.author],
+            regions: getUniqueItems(item.package.regionCode),
+            countries: getUniqueItems(item.package.countryCode),
+            cities: getUniqueItems(item.package.cityCode),
+            formats: getResourceFormats(item.package)
+          };
+        })
+        .sortBy('title')
+        .value();
+    });
 }
 
+var getAllDataPackages = (function() {
+  var allDataPackagesCache;
+
+  return function getAllDataPackages() {
+    if (allDataPackagesCache !== undefined) {
+      return Promise.resolve(allDataPackagesCache);
+    }
+
+    return getDataPackages()
+      .then(function(allDataPackages) {
+        allDataPackagesCache = allDataPackages;
+
+        return allDataPackages;
+      });
+  };
+})();
+
 function searchByTitle(query) {
-  var url = module.exports.searchApiUrl + '?size=10000&q=' +
-    encodeURIComponent(JSON.stringify(query));
-  return downloader.getJson(url).then(function(packages) {
-    return _.chain(packages)
-      .filter(_.isObject)
-      .map(function(item) {
-        return item.id;
-      })
-      .value();
-  });
+  return getDataPackages(query);
 }
 
 function isFilterValueSet(value) {
@@ -105,17 +119,15 @@ function matchArray(item, compareTo) {
   return _.intersection(item, compareTo).length > 0;
 }
 
-function performSearch(dataPackages, filters) {
+function performSearch(filters) {
   var promise;
   if (_.trim(filters.q) != '') {
     promise = searchByTitle(filters.q);
   } else {
-    promise = Promise.resolve(_.map(dataPackages, function(item) {
-      return item.id;
-    }));
+    promise = getAllDataPackages();
   }
 
-  return promise.then(function(ids) {
+  return promise.then(function(dataPackages) {
     var result = {
       items: [],
       options: {
@@ -137,11 +149,6 @@ function performSearch(dataPackages, filters) {
     };
 
     _.each(dataPackages, function(dataPackage) {
-      // Apply full-text search - skip items that does not match query
-      if (ids.indexOf(dataPackage.id) == -1) {
-        return;
-      }
-
       var matches = {
         authors: matchArray(dataPackage.authors, filters.authors),
         regions: matchArray(dataPackage.regions, filters.regions),

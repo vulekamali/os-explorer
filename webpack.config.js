@@ -2,10 +2,10 @@
 
 var _ = require('lodash');
 var fs = require('fs');
+var path = require('path');
 var webpack = require('webpack');
 
 var plugins = [
-  new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   })
@@ -14,9 +14,9 @@ var plugins = [
 if (process.env.NODE_ENV == 'production') {
   plugins.push(
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
       compressor: {
-        screw_ie8: true,
-        warnings: false
+        screw_ie8: true
       }
     })
   );
@@ -32,15 +32,17 @@ module.exports = {
   devtool: 'source-map',
   output: {
     filename: '[name].js',
-    path: './public/scripts',
+    path: path.resolve(__dirname, 'public/scripts'),
     libraryTarget: 'umd'
   },
-  externals: {
+  resolve: {
+    alias: {
+      config$: path.resolve(__dirname, 'config.js')
+    }
   },
   module: {
-    loaders: [
-      {test: /\.html$/, loader: 'raw'},
-      {test: /\.json/, loader: 'json'}
+    rules: [
+      {test: /\.html$/, loader: 'raw-loader'}
     ]
   },
   plugins: plugins

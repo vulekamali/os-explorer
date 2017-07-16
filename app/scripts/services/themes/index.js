@@ -1,15 +1,10 @@
 'use strict';
 
-var _ = require('lodash');
-
-var defaultTheme = require('../../../themes/default.json');
+var OSStyles = require('os-styles');
 
 var themes = {
-  'default': defaultTheme,
-  // Other themes
-  'wacky': require('../../../themes/wacky.json')
+  default: require('../../../themes/default.json'),
+  wacky: require('../../../themes/wacky.json')
 };
 
-module.exports.get = function(theme) {
-  return _.merge({}, themes.default, themes[theme]);
-};
+module.exports = new OSStyles(themes);

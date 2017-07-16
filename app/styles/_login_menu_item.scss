@@ -1,0 +1,68 @@
+.navbar-nav,
+.secondary-nav {
+  // Toggle visibility of user name of "Login" button, depending if user is
+  // logged in or not
+  .login-link {
+    display: none;
+  }
+
+  .user {
+    .login-link {
+      display: block;
+    }
+
+    .user-info-label,
+    .x-user-info {
+      display: none;
+    }
+  }
+}
+
+.x-user-info {
+  position: absolute;
+  right: 0;
+  z-index: 999;
+  background: #131518;
+  display: table;
+  table-layout: auto;
+  width: auto;
+
+  .x-avatar {
+    vertical-align: top;
+    display: table-cell;
+    width: 1%;
+    padding: 1em;
+
+    img {
+      max-width: 5em;
+      max-height: 5em;
+    }
+  }
+
+  .x-info {
+    vertical-align: top;
+    display: table-cell;
+    padding: 1em;
+    padding-left: 0;
+
+    div {
+      white-space: nowrap;
+    }
+
+    strong {
+      color: #fff;
+    }
+
+    a {
+      color: darken(#fff, 40%);
+      text-decoration: none;
+      text-transform: capitalize;
+      margin-left: 0;
+
+      &:hover,
+      &:active {
+        color: #fff;
+      }
+    }
+  }
+}

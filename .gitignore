@@ -37,3 +37,9 @@ node_modules
 
 # Some project-specific files
 config.json
+
+# Temporary folder used by mocha-webpack
+.tmp
+
+# Public folder
+public
