@@ -1,7 +1,6 @@
 FROM node:7-alpine
 
 WORKDIR /app
-ADD . .
 
 RUN apk --no-cache --update add \
   autoconf \
@@ -13,10 +12,10 @@ RUN apk --no-cache --update add \
 
 RUN update-ca-certificates
 
-RUN npm install && npm run build
+ADD . .
 
-RUN rm -rf /var/cache/apk/*
+RUN npm install && npm run build
 
 EXPOSE 8000
 
-CMD /app/docker/startup.sh
+CMD npm start

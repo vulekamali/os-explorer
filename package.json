@@ -19,7 +19,7 @@
     "lodash": "^4.6.1",
     "normalize-url": "^1.9.1",
     "os-bootstrap": "openspending/os-bootstrap",
-    "os-styles": "openspending/os-styles#feature\/allow-theming"
+    "os-styles": "^0.0.2"
   },
   "devDependencies": {
     "chai": "^3.4.0",
