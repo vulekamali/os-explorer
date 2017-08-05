@@ -8,10 +8,10 @@
       <div ng-cloak>
         <h1>
           {% raw %}
-          Search over <strong>{{ (num_packages || 0) | number }}</strong> data packages from <strong>{{ (num_countries || 0) | number }}</strong> countries with over <strong>{{ (num_records || 0) | number }}</strong> fiscal records.
+          Search over <strong>{{ (num_packages | number) || '&hellip;' | number }}</strong> data packages from <strong>{{ (num_countries | number) || '&hellip;' }}</strong> countries with over <strong>{{ (num_records | number) || '&hellip;' }}</strong> fiscal records.
           {% endraw %}
         </h1>
-        <form class="form" action="search">
+        <form class="form" action="s">
           <fieldset class="input-group search-bar">
             <input class="icon" type="search" placeholder="Search for available fiscal data" name="q" autofocus>
             <button type="submit"><span>Search</span></button>
