@@ -5,7 +5,7 @@ var config = require('config');
 
 
 function loadPackageStatsIntoScope($scope, $http) {
-  var DEFAULT_BASE_URL = 'https://next.openspending.org';
+  var DEFAULT_BASE_URL = 'https://openspending.org';
   var BASE_URL = config.baseUrl || DEFAULT_BASE_URL;
   var packageStatsUrl = BASE_URL + '/package/stats';
 
