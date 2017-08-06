@@ -1,4 +1,4 @@
-var baseUrl = process.env.OS_BASE_URL || 'https://staging.openspending.org';
+var baseUrl = process.env.OS_BASE_URL || 'https://next.openspending.org';
 var osExplorerSearchHost = process.env.OS_EXPLORER_SEARCH_HOST || baseUrl;
 var searchUrl = process.env.OS_SEARCH_URL || osExplorerSearchHost + '/search/package';
 var authUrl = process.env.OS_EXPLORER_AUTH_HOST || baseUrl;
