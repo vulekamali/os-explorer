@@ -2,6 +2,7 @@ var baseUrl = process.env.OS_BASE_URL || 'https://openspending.org';
 var osExplorerSearchHost = process.env.OS_EXPLORER_SEARCH_HOST || baseUrl;
 var searchUrl = process.env.OS_SEARCH_URL || osExplorerSearchHost + '/search/package';
 var authUrl = process.env.OS_EXPLORER_AUTH_HOST || baseUrl;
+var cosmopolitanUrl = process.env.OS_COSMOPOLITAN_URL || 'https://cosmopolitan.openspending.org/?format=json';
 var url = require('url');
 var assert = require('assert');
 
@@ -18,6 +19,7 @@ module.exports = {
   baseUrl: validateUrl(baseUrl),
   searchUrl: validateUrl(searchUrl),
   authUrl: validateUrl(authUrl),
+  cosmopolitanUrl: validateUrl(cosmopolitanUrl),
   snippets: {
     ga: process.env.OS_SNIPPETS_GA
   }

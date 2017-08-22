@@ -5,8 +5,7 @@ var Promise = require('bluebird');
 var downloader = require('../downloader');
 
 var config = require('config');
-var DEFAULT_SEARCH_URL = 'https://openspending.org/search/package';
-module.exports.searchApiUrl = config.searchUrl || DEFAULT_SEARCH_URL;
+module.exports.searchApiUrl = config.searchUrl;
 
 function getUniqueItems(items) {
   var result = {};

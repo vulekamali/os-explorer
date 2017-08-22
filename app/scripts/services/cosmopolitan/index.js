@@ -1,8 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-
-var cosmopolitanApiUrl = '//cosmopolitan.openspending.org/?format=json';
+var config = require('config');
 
 function upper(v) {
   return (v + '').toUpperCase();
@@ -16,7 +15,7 @@ function processFetchResponse(response) {
 }
 
 function getItemsFromSource(source) {
-  var url = cosmopolitanApiUrl;
+  var url = config.cosmopolitanUrl;
 
   var options = {
     method: 'GET'
