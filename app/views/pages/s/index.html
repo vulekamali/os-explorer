@@ -79,7 +79,9 @@
           <input type="text" class="form-control" ng-class="{'form-control-inverse': !search.q}"
             ng-model="search.q"
             ng-model-options="{debounce: 200}"
-            placeholder="Search data">
+            placeholder="Search fiscal data (e.g. Berlin, Mexico, ESIF, etc.)"
+            autofocus
+          />
           <span class="form-control-feedback"><i class="fa fa-search"></i></span>
         </div>
         <div ng-if="!search.q && !search.viewAll" class="text-right">
