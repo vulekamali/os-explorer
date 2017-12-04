@@ -8,6 +8,10 @@ var webpack = require('webpack');
 var plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+  }),
+  new webpack.DefinePlugin({
+    'process.env.SENTRY_PUBLIC_DSN':
+      JSON.stringify(process.env.SENTRY_PUBLIC_DSN)
   })
 ];
 
