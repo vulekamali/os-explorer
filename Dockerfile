@@ -14,6 +14,8 @@ RUN update-ca-certificates
 
 ADD . .
 
+ENV OS_SNIPPETS_GA=UA-33874954-42
+
 RUN npm install && npm run build
 
 EXPOSE 8000

@@ -12,6 +12,10 @@ var plugins = [
   new webpack.DefinePlugin({
     'process.env.SENTRY_PUBLIC_DSN':
       JSON.stringify(process.env.SENTRY_PUBLIC_DSN)
+  }),
+  new webpack.DefinePlugin({
+    'process.env.OS_SNIPPETS_GA':
+      JSON.stringify(process.env.OS_SNIPPETS_GA)
   })
 ];
 
