@@ -60,7 +60,7 @@ gulp.task('app.styles', ['app.styles.assets'], function() {
 
 gulp.task('app.styles.assets', function() {
   var files = [
-    path.join(nodeModulesDir, 'os-styles/lib/assets/**/*')
+    path.join(nodeModulesDir, 'os-styles/src/assets/**/*')
   ];
 
   return gulp.src(files)
