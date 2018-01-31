@@ -84,6 +84,9 @@ ngModule.factory('LoginService', [
       if (result.isLoggedIn) {
         result.reset();
         authenticate.logout();
+        if (href===null) {
+          result.check();
+        }
       }
     };
 
