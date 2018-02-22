@@ -3,8 +3,8 @@
 var _ = require('lodash');
 var Promise = require('bluebird');
 var downloader = require('../downloader');
+var config = window.globalConfig || {};
 
-var config = require('config');
 module.exports.searchApiUrl = config.searchUrl;
 
 function getUniqueItems(items) {

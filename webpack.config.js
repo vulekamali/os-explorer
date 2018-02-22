@@ -8,14 +8,6 @@ var webpack = require('webpack');
 var plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-  }),
-  new webpack.DefinePlugin({
-    'process.env.SENTRY_PUBLIC_DSN':
-      JSON.stringify(process.env.SENTRY_PUBLIC_DSN)
-  }),
-  new webpack.DefinePlugin({
-    'process.env.OS_SNIPPETS_GA':
-      JSON.stringify(process.env.OS_SNIPPETS_GA)
   })
 ];
 
@@ -42,11 +34,6 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'public/scripts'),
     libraryTarget: 'umd'
-  },
-  resolve: {
-    alias: {
-      config$: path.resolve(__dirname, 'config.js')
-    }
   },
   module: {
     rules: [

@@ -19,8 +19,31 @@ var angular = require('angular');
 
   require('os-bootstrap/dist/js/os-bootstrap');
 
-  globals.addEventListener('load', function() {
-    require('./application');
-    angular.bootstrap(globals.document, ['Application']);
-  });
+  // Make config global available to app, then load scripts that require
+  // globalConfig.
+  $.get('/config.json')
+    .then(function(config) {
+      globals.globalConfig = Object.assign({}, globals.globalConfig, config);
+      return globals.globalConfig;
+    })
+    .then(function() {
+      // Load snippets (requires globalConfig)
+      return $.getScript('/scripts/snippets.js')
+        .fail(function(jqxhr, settings, exception) {
+          throw(exception);
+        });
+    })
+    .then(function() {
+      // Load externally hosted authClient.services lib (makes `authenticate`
+      // and `authorize` services available to angular modules).
+      var libUrl = globalConfig.conductorUrl + '/user/lib';
+      return $.getScript(libUrl)
+        .fail(function(jqxhr, settings, exception) {
+          console.log('Unable to load authClient.services from ' + libUrl);
+        });
+    })
+    .then(function() {
+      require('./application');
+      angular.bootstrap(globals.document, ['Application']);
+    });
 })(window);

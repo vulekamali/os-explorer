@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-var config = require('config');
+var config = window.globalConfig || {};
 
 function upper(v) {
   return (v + '').toUpperCase();
