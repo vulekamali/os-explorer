@@ -8,7 +8,6 @@ var prefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var nunjucksRender = require('gulp-nunjucks-render');
 var imagemin = require('gulp-imagemin');
-var config = require('./config');
 
 var frontSrcDir = path.join(__dirname, '/app');
 var frontViewsDir = path.join(frontSrcDir, '/views');
@@ -36,11 +35,7 @@ gulp.task('app.html', function() {
   ];
   return gulp.src(files)
     .pipe(nunjucksRender({
-      path: frontViewsDir,
-      data: {
-        BASE_URL: config.baseUrl,
-        AUTH_URL: config.authUrl
-      }
+      path: frontViewsDir
     }))
     .pipe(gulp.dest(publicDir));
 });

@@ -1,6 +1,7 @@
-if (process.env.SENTRY_PUBLIC_DSN) {
+var globalConfig = window.globalConfig || {};
+if (globalConfig.snippets && globalConfig.snippets.raven) {
     var Raven = require('raven-js');
     Raven
-        .config(process.env.SENTRY_PUBLIC_DSN, {logger: 'os-explorer'})
+        .config(globalConfig.snippets.raven, {logger: 'os-explorer'})
         .install();
 }

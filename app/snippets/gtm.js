@@ -1,11 +1,11 @@
+/* eslint-disable */
 // Google Tag Manager
-var config = require('config');
-if (config.snippets.gtm) {
+var globalConfig = window.globalConfig || {};
+if (globalConfig.snippets && globalConfig.snippets.gtm) {
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;
 f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer',config.snippets.gtm);
+})(window,document,'script','dataLayer',globalConfig.snippets.gtm);
 }
-

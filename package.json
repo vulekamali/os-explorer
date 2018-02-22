@@ -11,12 +11,14 @@
     "angular": "^1.5.5",
     "angular-animate": "^1.5.5",
     "angular-marked": "^1.2.0",
+    "babel-polyfill": "^6.26.0",
     "bluebird": "^3.3.5",
     "font-awesome": "^4.5.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^2.1.4",
     "js-polyfills": "^0.1.12",
     "lodash": "^4.6.1",
+    "lookenv": "^0.6.3",
     "normalize-url": "^1.9.1",
     "os-bootstrap": "openspending/os-bootstrap",
     "os-styles": "^0.0.2",
@@ -49,7 +51,7 @@
     "zombie": "^4.2.1"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "lookenv --dotenv -- node server.js",
     "test": "mocha-webpack --webpack-config webpack.config.test.js \"tests/**/*.js\"",
     "posttest": "npm run review",
     "review": "eslint app/scripts tests gulpfile.js webpack.config.js webpack.config.test.js",

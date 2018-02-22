@@ -7,7 +7,7 @@ var $q = require('../services/ng-utils').$q;
 var searchService = require('../services/search');
 var cosmopolitan = require('../services/cosmopolitan');
 var ngModule = require('../module');
-var config = require('config');
+var config = window.globalConfig || {};
 
 var SEARCH_FILTERS = [
   'authors',

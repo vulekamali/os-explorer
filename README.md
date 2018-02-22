@@ -19,6 +19,31 @@ An app to explorer the OpenSpending database.
 - build the frontend assets
 `npm run build`
 
+- configure .env
+
+For local development, add an `.env` file with the following settings:
+```ini
+# Required settings
+# e.g. https://openspending.org or http://localhost
+OS_BASE_URL=
+
+# Optional settings
+# Google Analytics code
+OS_SNIPPETS_GA=
+# Sentry public DSN url
+OS_SNIPPETS_RAVEN=
+
+# Each service will use OS_BASE_URL unless overridden by these:
+OS_CONDUCTOR_URL=
+OS_SEARCH_URL=
+OS_VIEWER_URL=
+OS_EXPLORER_URL=
+OS_PACKAGER_URL=
+
+# Url for Cosmopolitan API service, defaults to https://cosmopolitan.openspending.org/?format=json
+OS_COSMOPOLITAN_URL=
+```
+
 - run the tests
 `npm test`
 

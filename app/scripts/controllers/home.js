@@ -1,11 +1,11 @@
 'use strict';
 
 var ngModule = require('../module');
-var config = require('config');
+var config = window.globalConfig || {};
 
 
 function loadPackageStatsIntoScope($scope, $http) {
-  var packageStatsUrl = config.baseUrl + '/package/stats';
+  var packageStatsUrl = config.conductorUrl + '/package/stats';
 
   $http.get(packageStatsUrl)
     .then(function(response) {
@@ -16,9 +16,15 @@ function loadPackageStatsIntoScope($scope, $http) {
     });
 }
 
+function loadUrlsIntoScope($scope) {
+  $scope.packagerUrl = config.packagerUrl;
+  $scope.viewerUrl = config.viewerUrl;
+}
+
 ngModule.controller('HomeController', [
   '$scope', '$http',
   function($scope, $http) {
     loadPackageStatsIntoScope($scope, $http);
+    loadUrlsIntoScope($scope);
   }
 ]);
