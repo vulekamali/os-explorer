@@ -8,15 +8,18 @@ RUN apk --no-cache --update add \
   build-base \
   nasm \
   libpng-dev \
-  git 
+  git
 
 RUN update-ca-certificates
 
-ADD . .
-
 ENV OS_SNIPPETS_GA=UA-33874954-42
 
-RUN npm install && npm run build
+WORKDIR /app
+ADD package.json .
+RUN npm install
+
+ADD . .
+RUN npm run build
 
 EXPOSE 8000
 
