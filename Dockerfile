@@ -12,8 +12,6 @@ RUN apk --no-cache --update add \
 
 RUN update-ca-certificates
 
-ENV OS_SNIPPETS_GA=UA-33874954-42
-
 WORKDIR /app
 ADD package.json .
 RUN npm install
