@@ -8,9 +8,9 @@ app.set('trust proxy', true);
 
 app.use(express.static('public/'));
 
-app.get('/config.json', function(request, response) {
+app.get('/config.js', function(request, response) {
     /*
-    Return json object of config variables for the angularjs application.
+    Return a window.globalConfig object of settings used by the AngularJS app.
 
     First look up which keys should be included from lookenv.config, then set
     its value either from the environment or a .env file (in that order of
@@ -44,7 +44,8 @@ app.get('/config.json', function(request, response) {
       }
     });
 
-    response.json(appConfig);
+    response.setHeader('content-type', 'application/javascript');
+    response.send('window.globalConfig=' + JSON.stringify(appConfig));
 });
 
 app.listen(8000, function() {
