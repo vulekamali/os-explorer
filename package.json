@@ -21,7 +21,7 @@
     "lookenv": "^0.6.3",
     "normalize-url": "^1.9.1",
     "os-bootstrap": "openspending/os-bootstrap",
-    "os-styles": "^0.0.2",
+    "os-styles": "^0.0.3",
     "raven-js": "^3.20.1"
   },
   "devDependencies": {
