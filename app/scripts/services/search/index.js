@@ -69,17 +69,19 @@ function getDataPackages(query) {
       return _.chain(packages)
         .filter(_.isObject)
         .map(function(item) {
-          return {
-            id: item.id,
-            name: item.package.name,
-            title: item.package.title || item.package.name,
-            description: item.package.description,
-            authors: [item.package.author],
-            regions: getUniqueItems(item.package.regionCode),
-            countries: getUniqueItems(item.package.countryCode),
-            cities: getUniqueItems(item.package.cityCode),
-            formats: getResourceFormats(item.package)
-          };
+          if (_.has(item, 'package')) {
+            return {
+              id: item.id,
+              name: item.package.name,
+              title: item.package.title || item.package.name,
+              description: item.package.description,
+              authors: [item.package.author],
+              regions: getUniqueItems(item.package.regionCode),
+              countries: getUniqueItems(item.package.countryCode),
+              cities: getUniqueItems(item.package.cityCode),
+              formats: getResourceFormats(item.package)
+            };
+          }
         })
         .sortBy('title')
         .value();
