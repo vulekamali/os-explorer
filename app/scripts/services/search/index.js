@@ -68,20 +68,21 @@ function getDataPackages(query) {
     .then(function(packages) {
       return _.chain(packages)
         .filter(_.isObject)
+        .filter(function(p) {
+          return _.has(p, 'package');
+        })
         .map(function(item) {
-          if (_.has(item, 'package')) {
-            return {
-              id: item.id,
-              name: item.package.name,
-              title: item.package.title || item.package.name,
-              description: item.package.description,
-              authors: [item.package.author],
-              regions: getUniqueItems(item.package.regionCode),
-              countries: getUniqueItems(item.package.countryCode),
-              cities: getUniqueItems(item.package.cityCode),
-              formats: getResourceFormats(item.package)
-            };
-          }
+          return {
+            id: item.id,
+            name: item.package.name,
+            title: item.package.title || item.package.name,
+            description: item.package.description,
+            authors: [item.package.author],
+            regions: getUniqueItems(item.package.regionCode),
+            countries: getUniqueItems(item.package.countryCode),
+            cities: getUniqueItems(item.package.cityCode),
+            formats: getResourceFormats(item.package)
+          };
         })
         .sortBy('title')
         .value();
@@ -99,7 +100,6 @@ var getAllDataPackages = (function() {
     return getDataPackages()
       .then(function(allDataPackages) {
         allDataPackagesCache = allDataPackages;
-
         return allDataPackages;
       });
   };
