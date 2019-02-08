@@ -31,7 +31,7 @@ function createNameMap(items) {
 }
 
 function getInitialSearchParams(searchQuery) {
-  var params = Object.assign(
+  var params = _.assign(
     {},
     searchQuery,
     {
