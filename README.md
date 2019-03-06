@@ -5,10 +5,13 @@
 [![Issues](https://img.shields.io/badge/issue-tracker-orange.svg)](https://github.com/openspending/openspending/issues)
 [![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](http://docs.openspending.org/en/latest/developers/explorer/)
 
-An app to explorer the OpenSpending database.
+The homepage and search frontend for Openspending, working in conjuction with [os-conductor](https://github.com/openspending/os-conductor).
+
+- [NodeJS](https://nodejs.org/en/)
+- [AngularJS](https://angularjs.org/)
+- [ExpressJS](https://expressjs.com/)
 
 ## Quick start
-
 
 - get the code
 `git clone https://github.com/openspending/os-explorer.git`
