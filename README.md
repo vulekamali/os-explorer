@@ -7,7 +7,6 @@
 
 The homepage and search frontend for Openspending, working in conjuction with [os-conductor](https://github.com/openspending/os-conductor).
 
-- [NodeJS](https://nodejs.org/en/)
 - [AngularJS](https://angularjs.org/)
 - [ExpressJS](https://expressjs.com/)
 
