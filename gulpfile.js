@@ -7,7 +7,6 @@ var minifyCss = require('gulp-clean-css');
 var prefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var nunjucksRender = require('gulp-nunjucks-render');
-var imagemin = require('gulp-imagemin');
 
 var frontSrcDir = path.join(__dirname, '/app');
 var frontViewsDir = path.join(frontSrcDir, '/views');
@@ -72,7 +71,6 @@ gulp.task('app.images', function() {
         '/os-bootstrap/dist/assets/os-branding/vector/light/osviewer.svg'),
       path.join(frontImgDir, '**/*')
     ])
-    .pipe(imagemin())
     .pipe(gulp.dest(publicImgDir));
 });
 
